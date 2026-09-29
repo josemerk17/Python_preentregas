@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333333;
+}
+
+header {
+    padding: 20px;
+    background-color: #234b6c;
+    color: white;
+    text-align: center;
+}
+
+nav a {
+    display: inline-block;
+    margin: 0 12px;
+    color: white;
+}
+
+nav a:hover,
+nav a:focus {
+    text-decoration: none;
+}
+
+main {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 24px;
+    background-color: white;
+}
