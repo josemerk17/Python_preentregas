@@ -3,6 +3,7 @@ from tempfile import TemporaryDirectory
 
 from PIL import Image
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -11,6 +12,7 @@ from .models import Post
 
 class PostCrudTests(TestCase):
     def setUp(self):
+        self.client.force_login(User.objects.create_user(username='editor'))
         directory = TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         media_settings = self.settings(MEDIA_ROOT=directory.name)

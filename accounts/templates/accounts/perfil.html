@@ -1,0 +1,13 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Mi perfil</h2>
+    <p>Usuario: {{ perfil.usuario.username }}</p>
+    <p>Email: {{ perfil.usuario.email }}</p>
+    <h3>Biografía</h3>
+    {{ perfil.biografia|default:'Sin biografía todavía.'|linebreaks }}
+    {% if perfil.avatar %}
+        <img class="post-imagen" src="{{ perfil.avatar.url }}" alt="Avatar de {{ perfil.usuario.username }}">
+    {% endif %}
+    <p><a href="{% url 'accounts:editar_perfil' %}">Editar perfil</a></p>
+{% endblock %}

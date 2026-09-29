@@ -78,7 +78,8 @@ estado `borrador` de forma predeterminada: cambiarlo a `publicado` para verlos
 en el listado público. Inicio y Acerca de siguen disponibles.
 
 El panel admin es opcional. Si necesitas un administrador, ejecuta
-`python manage.py createsuperuser`. El CRUD de la Pre-Entrega 10 no requiere login.
+`python manage.py createsuperuser`. Desde la Pre-Entrega 11, crear, editar y
+eliminar posts requiere iniciar sesión.
 
 ## Pre-Entrega 10: CRUD e imágenes
 
@@ -95,13 +96,41 @@ está incluida en `requirements.txt`. La imagen es opcional.
 en `media/posts/`. Django las sirve durante desarrollo cuando `DEBUG=True`.
 La carpeta `media/`, la base `db.sqlite3` y el entorno virtual se excluyen de Git.
 
-Para probar: inicia el servidor, entra a **Crear post**, completa los campos,
+Para probar: inicia el servidor, inicia sesión, entra a **Crear post**, completa los campos,
 elige estado `publicado`, selecciona una imagen PNG o JPG y guarda.
 El detalle debe mostrar la imagen. Usa **Editar** para subir otra imagen y
 **Eliminar** para comprobar la página de confirmación (Cancelar conserva el post).
 También puedes crear un post sin imagen. Los borradores y archivados se encuentran
 en **Todos los posts**. Al cambiar o eliminar un post, los archivos de imágenes
 anteriores permanecen en `media/`; no hay limpieza automática de archivos.
+
+## Pre-Entrega 11: usuarios y perfiles
+
+Con el entorno activado y desde la carpeta que contiene `manage.py`, ejecuta:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+- `/accounts/registro/`: registra username, email y contraseña. Se crea el perfil
+  asociado explícitamente y se redirige al login.
+- `/accounts/login/`: inicia sesión y abre el perfil, o vuelve a la página
+  protegida que se intentó visitar.
+- **Cerrar sesión**: el botón envía un formulario POST con CSRF a
+  `/accounts/logout/` y vuelve a Inicio.
+- `/accounts/perfil/`: muestra username, email, biografía y avatar del usuario.
+- `/accounts/perfil/editar/`: permite editar biografía y subir, cambiar o quitar
+  el avatar. Si un usuario anterior no tiene perfil, se crea al acceder.
+
+El perfil y su edición requieren sesión. Crear, editar y eliminar posts también;
+el listado y el detalle siguen siendo públicos. Cualquier usuario autenticado
+puede gestionar posts: no se añadieron permisos por autor.
+
+Para probar el avatar, inicia sesión, abre **Mi perfil**, pulsa **Editar perfil**,
+escribe una biografía y selecciona una imagen PNG o JPG. Al guardar debe aparecer
+en el perfil. Los avatares opcionales se guardan en `media/avatares/`, usando
+Pillow y la configuración media existente. `media/` sigue excluida de Git.
 
 ## Aplicación principal
 
