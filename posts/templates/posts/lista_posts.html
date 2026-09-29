@@ -1,0 +1,14 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>Publicaciones</h2>
+    {% for post in posts %}
+        <article>
+            <h3>{{ post.titulo }}</h3>
+            <p>Por {{ post.autor }} | {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
+            {{ post.contenido|linebreaks }}
+        </article>
+    {% empty %}
+        <p>Todavía no hay publicaciones.</p>
+    {% endfor %}
+{% endblock %}

@@ -42,6 +42,14 @@ pip install -r requirements.txt
 
 ## Ejecutar el proyecto
 
+Desde la carpeta que contiene `manage.py`, con el entorno virtual activado,
+aplicar las migraciones y crear un usuario administrador (si aún no existe):
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
 Iniciar el servidor de desarrollo:
 
 ```bash
@@ -51,6 +59,15 @@ python manage.py runserver
 Abrir en el navegador:
 
 http://127.0.0.1:8000/
+
+Las publicaciones están en http://127.0.0.1:8000/posts/.
+Solo se muestran los posts con estado `publicado`, del más reciente al más antiguo.
+
+Para agregar o editar posts, entrar a http://127.0.0.1:8000/admin/ con el
+superusuario creado. En Posts se pueden completar título, contenido, autor y
+estado; la fecha de creación se asigna automáticamente. Los posts nuevos tienen
+estado `borrador` de forma predeterminada: cambiarlo a `publicado` para verlos
+en el listado público. Inicio y Acerca de siguen disponibles.
 
 ## Aplicación principal
 
