@@ -2,9 +2,14 @@
 
 {% block content %}
     <h2>Publicaciones</h2>
+    <p>
+        <a href="{% url 'posts:lista_posts' %}">Solo publicados</a> |
+        <a href="{% url 'posts:lista_posts' %}?todos=1">Todos los posts</a>
+    </p>
     {% for post in posts %}
         <article>
-            <h3>{{ post.titulo }}</h3>
+            <h3><a href="{% url 'posts:detalle_post' post.pk %}">{{ post.titulo }}</a></h3>
+            <p>Estado: {{ post.get_estado_display }}</p>
             <p>Por {{ post.autor }} | {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
             {{ post.contenido|linebreaks }}
         </article>

@@ -42,12 +42,20 @@ pip install -r requirements.txt
 
 ## Ejecutar el proyecto
 
+En este equipo, el entorno que tiene Django y Pillow instalados es `../.venv`.
+Desde `pre_entrega_7`, puedes activarlo en PowerShell con:
+
+```powershell
+..\.venv\Scripts\Activate.ps1
+```
+
+Si usas otro entorno, instala primero `python -m pip install -r requirements.txt`.
+
 Desde la carpeta que contiene `manage.py`, con el entorno virtual activado,
 aplicar las migraciones y crear un usuario administrador (si aún no existe):
 
 ```bash
 python manage.py migrate
-python manage.py createsuperuser
 ```
 
 Iniciar el servidor de desarrollo:
@@ -68,6 +76,32 @@ superusuario creado. En Posts se pueden completar título, contenido, autor y
 estado; la fecha de creación se asigna automáticamente. Los posts nuevos tienen
 estado `borrador` de forma predeterminada: cambiarlo a `publicado` para verlos
 en el listado público. Inicio y Acerca de siguen disponibles.
+
+El panel admin es opcional. Si necesitas un administrador, ejecuta
+`python manage.py createsuperuser`. El CRUD de la Pre-Entrega 10 no requiere login.
+
+## Pre-Entrega 10: CRUD e imágenes
+
+- `/posts/`: publicaciones, con un enlace a **Todos los posts** (`?todos=1`)
+  para gestionar también borradores y archivados.
+- `/posts/crear/`: crear un post.
+- `/posts/<id>/`: ver el detalle y su imagen, si tiene una.
+- `/posts/<id>/editar/`: editar los datos y cambiar o quitar la imagen.
+- `/posts/<id>/eliminar/`: ver la confirmación; solo se elimina al enviar el formulario.
+
+Pillow es la dependencia que permite validar las imágenes del `ImageField` y
+está incluida en `requirements.txt`. La imagen es opcional.
+`MEDIA_URL = '/media/'` y `MEDIA_ROOT = BASE_DIR / 'media'` guardan las imágenes
+en `media/posts/`. Django las sirve durante desarrollo cuando `DEBUG=True`.
+La carpeta `media/`, la base `db.sqlite3` y el entorno virtual se excluyen de Git.
+
+Para probar: inicia el servidor, entra a **Crear post**, completa los campos,
+elige estado `publicado`, selecciona una imagen PNG o JPG y guarda.
+El detalle debe mostrar la imagen. Usa **Editar** para subir otra imagen y
+**Eliminar** para comprobar la página de confirmación (Cancelar conserva el post).
+También puedes crear un post sin imagen. Los borradores y archivados se encuentran
+en **Todos los posts**. Al cambiar o eliminar un post, los archivos de imágenes
+anteriores permanecen en `media/`; no hay limpieza automática de archivos.
 
 ## Aplicación principal
 

@@ -1,0 +1,16 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h2>{{ post.titulo }}</h2>
+    <p>Por {{ post.autor }} | {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
+    <p>Estado: {{ post.get_estado_display }}</p>
+    {% if post.imagen %}
+        <img class="post-imagen" src="{{ post.imagen.url }}" alt="Imagen de {{ post.titulo }}">
+    {% endif %}
+    {{ post.contenido|linebreaks }}
+    <p>
+        <a href="{% url 'posts:editar_post' post.pk %}">Editar</a> |
+        <a href="{% url 'posts:eliminar_post' post.pk %}">Eliminar</a> |
+        <a href="{% url 'posts:lista_posts' %}">Volver al listado</a>
+    </p>
+{% endblock %}
