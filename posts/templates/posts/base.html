@@ -4,33 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi blog Django</title>
+    <meta name="theme-color" content="#f7f6f1">
+    <title>{% block title %}Cuaderno Verde | Blog{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{% static 'posts/css/estilos.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Mi blog Django</h1>
-        <nav>
-            <a href="{% url 'posts:inicio' %}">Inicio</a>
-            <a href="{% url 'posts:acerca' %}">Acerca de</a>
-            <a href="{% url 'posts:lista_posts' %}">Publicaciones</a>
-            {% if user.is_authenticated %}
-                <span>Hola, {{ user.username }}</span>
-                <a href="{% url 'accounts:perfil' %}">Mi perfil</a>
-                <a href="{% url 'posts:crear_post' %}">Crear post</a>
-                <form method="post" action="{% url 'accounts:logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">Cerrar sesión</button>
-                </form>
-            {% else %}
-                <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
-                <a href="{% url 'accounts:registro' %}">Registrarse</a>
-            {% endif %}
-        </nav>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="{% url 'posts:inicio' %}">
+                <span class="brand-mark" aria-hidden="true">C</span>
+                <span class="brand-name">Cuaderno Verde</span>
+            </a>
+            <nav class="site-nav" aria-label="Navegación principal">
+                <a href="{% url 'posts:inicio' %}">Inicio</a>
+                <a href="{% url 'posts:lista_posts' %}">Publicaciones</a>
+                <a href="{% url 'posts:acerca' %}">Acerca de</a>
+                {% if user.is_authenticated %}
+                    <span class="nav-user">Hola, {{ user.username }}</span>
+                    <a href="{% url 'accounts:perfil' %}">Mi perfil</a>
+                    <a href="{% url 'posts:crear_post' %}">Escribir</a>
+                    <form class="nav-logout" method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Salir</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}">Iniciar sesión</a>
+                    <a class="button" href="{% url 'accounts:registro' %}">Crear cuenta</a>
+                {% endif %}
+            </nav>
+        </div>
     </header>
-    <main>
-        {% block content %}
-        {% endblock %}
+    <main class="page-shell {% block page_class %}{% endblock %}">
+        {% block content %}{% endblock %}
     </main>
+    <footer class="site-footer">Una colección de ideas, historias y pequeñas inspiraciones.</footer>
 </body>
 </html>

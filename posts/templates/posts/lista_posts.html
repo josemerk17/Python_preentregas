@@ -1,19 +1,40 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Publicaciones | Cuaderno Verde{% endblock %}
 {% block content %}
-    <h2>Publicaciones</h2>
-    <p>
-        <a href="{% url 'posts:lista_posts' %}">Solo publicados</a> |
-        <a href="{% url 'posts:lista_posts' %}?todos=1">Todos los posts</a>
-    </p>
-    {% for post in posts %}
-        <article>
-            <h3><a href="{% url 'posts:detalle_post' post.pk %}">{{ post.titulo }}</a></h3>
-            <p>Estado: {{ post.get_estado_display }}</p>
-            <p>Por {{ post.autor }} | {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
-            {{ post.contenido|linebreaks }}
-        </article>
-    {% empty %}
-        <p>Todavía no hay publicaciones.</p>
-    {% endfor %}
+    <header>
+        <p class="eyebrow">El archivo del blog</p>
+        <h1>Publicaciones</h1>
+        <p class="lede">Ideas para leer, explorar y llevar contigo.</p>
+    </header>
+    <div class="list-tools">
+        <p>{% if request.GET.todos == '1' %}Mostrando todas las publicaciones.{% else %}Mostrando publicaciones publicadas.{% endif %}</p>
+        <div>
+            <a class="button button--light" href="{% url 'posts:lista_posts' %}">Publicados</a>
+            {% if user.is_authenticated %}<a class="button button--light" href="{% url 'posts:lista_posts' %}?todos=1">Todos los posts</a>{% endif %}
+        </div>
+    </div>
+    <div class="{% if posts|length > 0 %}{% if request.GET.todos == '1' %}post-list{% else %}post-grid{% endif %}{% endif %}">
+        {% for post in posts %}
+            <article class="post-card">
+                <a href="{% url 'posts:detalle_post' post.pk %}" aria-label="Leer {{ post.titulo }}">
+                    {% if post.imagen %}
+                        <img class="post-card-image" src="{{ post.imagen.url }}" alt="Imagen de {{ post.titulo }}">
+                    {% else %}
+                        <span class="post-card-image post-card-placeholder" aria-hidden="true">✳</span>
+                    {% endif %}
+                </a>
+                <div class="post-card-body">
+                    <p class="post-meta">{{ post.fecha_creacion|date:"d \d\e F, Y" }} · {{ post.autor }}{% if request.GET.todos == '1' %}<span class="post-status">{{ post.get_estado_display }}</span>{% endif %}</p>
+                    <h3><a href="{% url 'posts:detalle_post' post.pk %}">{{ post.titulo }}</a></h3>
+                    <p class="post-excerpt">{{ post.contenido|truncatewords:24 }}</p>
+                </div>
+            </article>
+        {% empty %}
+            <div class="empty-state">
+                <p>Todavía no hay publicaciones para mostrar.</p>
+                {% if user.is_authenticated %}<a class="button" href="{% url 'posts:crear_post' %}">Escribir la primera</a>{% endif %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

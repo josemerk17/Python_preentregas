@@ -1,6 +1,20 @@
-*.venv-1/
+# Entornos virtuales
+.venv/
+.venv-*/
+venv/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Django / datos locales
 .env
 db.sqlite3
 media/
+
+# Editores y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

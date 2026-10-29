@@ -1,7 +1,26 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Cuaderno Verde | Ideas para leer sin prisa{% endblock %}
+{% block page_class %}page-shell--home{% endblock %}
 {% block content %}
-    <h2>Inicio</h2>
-    <p>Bienvenidos a mi blog desarrollado con Django.</p>
-    <p>Este es un proyecto de práctica para aprender a crear páginas web.</p>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">Un espacio para las buenas ideas</p>
+            <h1>Historias que merecen un momento.</h1>
+            <p class="lede">Lecturas, aprendizajes y pensamientos para acompañar una pausa en tu día.</p>
+            <a class="button" href="{% url 'posts:lista_posts' %}">Explorar publicaciones <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-orbit" aria-hidden="true">✳</div>
+    </section>
+
+    <section aria-labelledby="welcome-heading">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Bienvenido</p>
+                <h2 id="welcome-heading">Un blog para descubrir</h2>
+            </div>
+            <a href="{% url 'posts:acerca' %}">Conoce este espacio →</a>
+        </div>
+        <p class="lede">Cuaderno Verde reúne publicaciones sobre creatividad, tecnología y la vida cotidiana. Encuentra algo nuevo, comparte una idea o vuelve cuando quieras.</p>
+    </section>
 {% endblock %}

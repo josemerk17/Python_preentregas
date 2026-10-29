@@ -1,12 +1,17 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Iniciar sesión | Cuaderno Verde{% endblock %}
 {% block content %}
-    <h2>Iniciar sesión</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="next" value="{{ next }}">
-        <button type="submit">Entrar</button>
-    </form>
-    <p><a href="{% url 'accounts:registro' %}">Crear una cuenta</a></p>
+    <section class="form-card">
+        <p class="eyebrow">Qué bueno verte de nuevo</p>
+        <h1>Inicia sesión</h1>
+        <p class="form-intro">Entra a tu cuenta para compartir y gestionar tus publicaciones.</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit">Entrar a mi cuenta</button>
+        </form>
+        <p class="form-links">¿Aún no tienes cuenta? <a href="{% url 'accounts:registro' %}">Regístrate aquí</a>.</p>
+    </section>
 {% endblock %}

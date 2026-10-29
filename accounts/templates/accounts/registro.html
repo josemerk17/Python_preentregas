@@ -1,10 +1,16 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Crear cuenta | Cuaderno Verde{% endblock %}
 {% block content %}
-    <h2>Registrarse</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Crear cuenta</button>
-    </form>
+    <section class="form-card">
+        <p class="eyebrow">Únete a la comunidad</p>
+        <h1>Crea tu cuenta</h1>
+        <p class="form-intro">Regístrate para escribir, compartir y personalizar tu perfil.</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Crear cuenta</button>
+        </form>
+        <p class="form-links">¿Ya tienes cuenta? <a href="{% url 'accounts:login' %}">Inicia sesión</a>.</p>
+    </section>
 {% endblock %}

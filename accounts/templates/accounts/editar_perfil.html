@@ -1,11 +1,16 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Editar perfil | Cuaderno Verde{% endblock %}
 {% block content %}
-    <h2>Editar perfil</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-        <a href="{% url 'accounts:perfil' %}">Cancelar</a>
-    </form>
+    <section class="form-card">
+        <p class="eyebrow">Tu espacio personal</p>
+        <h1>Editar perfil</h1>
+        <p class="form-intro">Actualiza tu biografía y la imagen que te representa.</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar cambios</button>
+            <a class="button button--light" href="{% url 'accounts:perfil' %}">Cancelar</a>
+        </form>
+    </section>
 {% endblock %}

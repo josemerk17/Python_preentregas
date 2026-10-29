@@ -1,7 +1,12 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Acerca de | Cuaderno Verde{% endblock %}
+{% block page_class %}page-shell--narrow{% endblock %}
 {% block content %}
-    <h2>Acerca de</h2>
-    <p>Este blog forma parte de mis actividades de aprendizaje de Python y Django.</p>
-    <p>En la Pre-Entrega 8 incorporamos vistas, rutas, plantillas y estilos CSS.</p>
+    <p class="eyebrow">La historia detrás del blog</p>
+    <h1>Un lugar para escribir y compartir.</h1>
+    <p class="lede">Cuaderno Verde nació como un proyecto para aprender, crear y reunir ideas en un mismo lugar.</p>
+    <p>Este blog está construido con Django y permite que sus lectores descubran publicaciones, mientras que las personas con cuenta pueden aportar nuevos textos y personalizar su perfil.</p>
+    <p>Gracias por pasar por aquí. Ojalá encuentres algo que te inspire.</p>
+    <a class="button" href="{% url 'posts:lista_posts' %}">Leer publicaciones</a>
 {% endblock %}

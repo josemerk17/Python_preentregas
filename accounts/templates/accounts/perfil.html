@@ -1,13 +1,18 @@
 {% extends 'posts/base.html' %}
 
+{% block title %}Mi perfil | Cuaderno Verde{% endblock %}
 {% block content %}
-    <h2>Mi perfil</h2>
-    <p>Usuario: {{ perfil.usuario.username }}</p>
-    <p>Email: {{ perfil.usuario.email }}</p>
-    <h3>Biografía</h3>
-    {{ perfil.biografia|default:'Sin biografía todavía.'|linebreaks }}
-    {% if perfil.avatar %}
-        <img class="post-imagen" src="{{ perfil.avatar.url }}" alt="Avatar de {{ perfil.usuario.username }}">
-    {% endif %}
-    <p><a href="{% url 'accounts:editar_perfil' %}">Editar perfil</a></p>
+    <section class="profile-panel">
+        <p class="eyebrow">Tu espacio personal</p>
+        {% if perfil.avatar %}
+            <img class="profile-avatar" src="{{ perfil.avatar.url }}" alt="Avatar de {{ perfil.usuario.username }}">
+        {% else %}
+            <span class="profile-avatar profile-placeholder" aria-hidden="true">{{ perfil.usuario.username|first|upper }}</span>
+        {% endif %}
+        <h1>{{ perfil.usuario.username }}</h1>
+        <p class="article-meta">{{ perfil.usuario.email }}</p>
+        <h3>Sobre mí</h3>
+        <div>{{ perfil.biografia|default:'Aún no has añadido una biografía.'|linebreaks }}</div>
+        <a class="button" href="{% url 'accounts:editar_perfil' %}">Editar perfil</a>
+    </section>
 {% endblock %}
